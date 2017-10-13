@@ -1,0 +1,22 @@
+<%# bookinstance_list.ejs %>
+<% extend('../includes/layout.ejs') %>
+	<% console.log(bookinstance_list) %>
+	<ul>
+		<% for (i=0; i<bookinstance_list.length; i++) {%>
+			<li> <a href="<%= bookinstance_list[i].url %>"> <%= bookinstance_list[i].title %></a><br>
+				<%= bookinstance_list[i].imprint %><br>
+				<% if (bookinstance_list[i].status == 'Available') { %>
+					<span class="text-success">Available</span><br>
+				<% } %>
+				<% else if (bookinstance_list[i].status == 'Maintenance') { %>
+					<span class="text-danger">Maintenance</span><br>
+				<% } %>
+				<% else { %>
+					<span class="text-warning"><%= bookinstance_list[i].status %></span><br>
+				<% } %>
+				<% if (bookinstance_list[i].status !== 'Available') { %>
+					Due: <strong> <%= bookinstance_list[i].due_back_formatted %></strong>
+				<% } %>
+			</li>
+		<% } %>
+	</ul>

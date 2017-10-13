@@ -23,7 +23,7 @@ exports.index = function(req, res) {
     		Genre.count(callback);
     	},
     }, function (err, results) {
-    	res.render('index', {title: 'Local Library', error: err, data: results});
+    	res.render('pages/index', {title: 'Local Library', error: err, data: results});
     }
 
     );
@@ -34,14 +34,27 @@ exports.book_list = function(req, res, next) {
 	Book.find({}, 'title author').populate('author').exec(
 		function(err, list_books) {
 			if (err) {return next(err);}
-			res.render('book_list', {title: 'Book List', book_list: list_books});
+			res.render('pages/book_list', {title: 'Book List', book_list: list_books});
 		}
 		);
 };
 
 // Display detail page for a specific book
-exports.book_detail = function(req, res) {
-    res.send('NOT IMPLEMENTED: Book detail: ' + req.params.id);
+exports.book_detail = function(req, res, next) {
+    async.parallel({
+        book: function(callback){
+            Book.findById(req.params.id)
+                .populate('author')
+                .populate('genre')
+                .exec(callback);
+        },
+        book_instance: function(callback) {
+            BookInstance.find({'book': req.params.id}).exec(callback);
+        }
+    }, function(err, results) {
+        if (err) {return next(err);}
+        res.render('book_detail', {title: 'Title', book: results.book, book_instance: results.book_instance});
+    });
 };
 
 // Display book create form on GET

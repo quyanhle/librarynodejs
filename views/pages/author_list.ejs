@@ -1,0 +1,8 @@
+<%# author_list %>
+<% extend('../includes/layout.ejs') %>
+<% console.log(author_list);%>
+	<ul>
+	<% for(i=0; i<author_list.length; i++) { %>
+		<li><a href='<%= author_list[i].url%>'><%= author_list[i].first_name + ' ' + author_list[i].last_name %></li>
+		<% } %>
+	</ul>

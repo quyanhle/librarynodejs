@@ -1,0 +1,14 @@
+<%# views/pages/index.ejs %>
+<% extend('../includes/layout.ejs') %>
+					<h1> <%= title %></h1>
+					<% if (error) { %>
+						<h2> Ther are no dynamic data </h2>
+					<% } %>
+					<ul>
+						<li><strong>Book: </strong> <%= data.book_count %></li>
+						<li><strong>Copies: </strong> <%= data.book_instance_count %></li>
+						<li><strong>Copies available: </strong> <%= data.book_instance_available_count %></li>
+						<li><strong>Authors : </strong> <%= data.author_count %></li>
+						<li><strong>Genres : </strong> <%= data.genre_count %></li>
+					</ul>
+			

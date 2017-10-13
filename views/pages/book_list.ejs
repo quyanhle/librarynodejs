@@ -1,0 +1,8 @@
+<%# book_list.ejs %>
+<% extend('../includes/layout.ejs') %>
+	<h1><%= title %></h1>
+	<ul>
+		<% for(var i=0; i<book_list.length; i++){ %>
+		<li><a href="<%= book_list[i].url %>"><%= book_list[i].title %></a></li>
+		<% } %>
+	</ul>
